@@ -23,7 +23,7 @@ Each day focuses on a core concept with hands-on DAG examples inside the `/dags/
 
 ---
 
-### ✅ Day 2: Operators (Python & Bash)
+### ✅ Day 2: [Operators (Python & Bash)](./docs/day2.md)
 - Learn: PythonOperator, BashOperator, chaining tasks
 - DAG: `day2_bash_python_dag.py`
 - Task: Run Python function → Bash command → Sleep
