@@ -1,0 +1,3 @@
+# Required libraries for the project
+scikit-learn==1.7.1
+matplotlib==3.10.5

@@ -1,0 +1,116 @@
+# This `docker-compose.yml` file defines a multi-service setup for running Apache Airflow with a PostgreSQL database.
+
+# Version:
+# - Specifies the Docker Compose file format version.
+
+# x-airflow-common:
+# - Defines reusable configuration for Airflow services, including:
+#   - Build context and image name.
+#   - Environment variables for Airflow configuration.
+#   - Volumes for DAGs, logs, and plugins.
+#   - User and group IDs for file permissions.
+#   - Dependency on the PostgreSQL service.
+
+# Services:
+# - postgres:
+#   - Runs a PostgreSQL database for Airflow.
+#   - Configures environment variables for database credentials.
+#   - Uses a volume for persistent data storage.
+#   - Includes a health check to ensure readiness.
+
+# - airflow-webserver:
+#   - Runs the Airflow webserver.
+#   - Inherits common Airflow configuration.
+#   - Exposes port 8080 for the web interface.
+#   - Includes a health check for the webserver.
+
+# - airflow-scheduler:
+#   - Runs the Airflow scheduler.
+#   - Inherits common Airflow configuration.
+
+# - airflow-init:
+#   - Initializes the Airflow environment.
+#   - Inherits common Airflow configuration.
+#   - Sets additional environment variables for database migration and user creation.
+
+# Volumes:
+# - postgres-db-volume:
+#   - Provides persistent storage for the PostgreSQL database.
+version: '3.8'
+x-airflow-common:
+  &airflow-common
+  build: .
+  image: ${AIRFLOW_IMAGE_NAME:-extending_airflow:latest}
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+#    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 10
+    AIRFLOW__WEBSERVER__RBAC: 'true'
+    AIRFLOW_UID: 50000
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+  user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
+  depends_on:
+    &airflow-common-depends-on
+    postgres:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "airflow" ]
+      interval: 5s
+      retries: 5
+    restart: always
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - 8001:8080
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8001/health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
+    depends_on:
+      - airflow-webserver
+
+  airflow-init:
+    <<: *airflow-common
+    command: version
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_MIGRATE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+
+volumes:
+  postgres-db-volume:
