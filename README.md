@@ -8,7 +8,7 @@ Each day focuses on a core concept with hands-on DAG examples inside the `/dags/
 
 ## 🛠️ How to Use This
 
-- Make sure you have Airflow running (see [Main README](../README.md) for setup via Docker).
+- Make sure you have Airflow running (see [Main README](README.md) for setup via Docker).
 - Navigate to `dags/` and enable the DAG for each day via the Airflow UI.
 - Follow the concepts and try modifying DAGs to experiment and learn more.
 
@@ -97,7 +97,7 @@ This project provides a quick way to run Apache Airflow using Docker and Docker 
    ```
 
 4. **Access the Airflow UI:**
-   - Open your browser and go to: [http://localhost:8080](http://localhost:8080)
+   - Open your browser and go to: [http://localhost:8001](http://localhost:8001)
    - Default credentials:  
      - Username: `airflow`  
      - Password: `airflow`
