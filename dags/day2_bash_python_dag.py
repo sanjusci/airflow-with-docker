@@ -9,7 +9,7 @@ def log_python_message():
 
 # Default arguments for the DAG
 default_args = {
-    'owner': 'airflow',
+    'owner': 'sanjusci',
     'retries': 1,
     'retry_delay': timedelta(minutes=2),
 }
@@ -22,7 +22,7 @@ with DAG(
     start_date=datetime(2025, 8, 1),
     schedule_interval='@daily',
     catchup=False,
-    tags=['day2', 'operators']
+    tags=['day2', 'airflow-learning', 'operators']
 ) as dag:
 
     # Python task

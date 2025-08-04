@@ -26,7 +26,7 @@ def get_current_date():
 
 
 default_args = {
-    'owner': 'Sanjusci',
+    'owner': 'sanjusci',
     'depends_on_past': False,
     'email_on_failure': False,
     'email_on_retry': False,
@@ -40,7 +40,8 @@ with DAG(
         description='Our first dag using python operator',
         schedule_interval='@daily',
         start_date=datetime(2025, 8, 1),
-        catchup=False
+        catchup=False,
+        tags=['day1', 'airflow-learning', 'DAG-Basics'],
 ) as dag:
     task1 = PythonOperator(
         task_id='print_hello',

@@ -18,21 +18,21 @@ Each day focuses on a core concept with hands-on DAG examples inside the `/dags/
 
 ### ✅ Day 1: [Introduction to Airflow & DAGs](./docs/day1.md)
 - Learn: What is Airflow, DAG basics, scheduling
-- DAG: `day1_hello_airflow_with_operator.py`
+- DAG: [`day1_hello_airflow_with_operator.py`](./dags/day1_hello_airflow_with_operator.py)
 - Task: Print “Hello from Airflow”
 
 ---
 
 ### ✅ Day 2: [Operators (Python & Bash)](./docs/day2.md)
 - Learn: PythonOperator, BashOperator, chaining tasks
-- DAG: `day2_bash_python_dag.py`
+- DAG: [`day2_bash_python_dag.py`](./dags/day2_bash_python_dag.py)
 - Task: Run Python function → Bash command → Sleep
 
 ---
 
-### ✅ Day 3: Scheduling & Dependencies
+### ✅ Day 3: [Scheduling & Dependencies](./docs/day3.md)
 - Learn: DAG scheduling (cron), retries, `set_upstream()`, SLAs
-- DAG: `day3_retry_scheduler_dag.py`
+- DAG: [`day3_retry_scheduler_dag.py`](./dags/day3_retry_scheduler_dag.py)
 - Task: Fail intentionally and observe retry behavior
 
 ---
