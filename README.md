@@ -37,30 +37,30 @@ Each day focuses on a core concept with hands-on DAG examples inside the `/dags/
 
 ---
 
-### ✅ Day 4: XComs, Variables & Branching
+### ✅ Day 4: [XComs, Variables & Branching](./docs/day4.md)
 - Learn: XCom push/pull, Airflow Variables, Branching logic
-- DAG: `day4_xcom_branch_dag.py`
+- DAG: [`day4_xcom_branch_dag.py`](./dags/day4_xcom_branch_dag.py)
 - Task: Pass value between tasks and trigger conditional path
 
 ---
 
-### ✅ Day 5: TaskFlow API & Sensors
+### ✅ Day 5: [TaskFlow API & Sensors](./docs/day5.md)
 - Learn: TaskFlow API decorators, FileSensor, ExternalTaskSensor
-- DAG: `day5_taskflow_sensor_dag.py`
+- DAG: [`day5_taskflow_sensor_dag.py`](./dags/day5_taskflow_sensor_dag.py)
 - Task: Wait for a file → Process it → Log result
 
 ---
 
-### ✅ Day 6: Custom Operators & Hooks
+### ✅ Day 6: [Custom Operators & Hooks](./docs/day6.md)
 - Learn: Build your own operator, use Hooks (PostgresHook, HttpHook)
-- DAG: `day6_custom_operator_dag.py`
+- DAG: [`day6_custom_operator_dag.py`](./dags/day6_custom_operator_dag.py)
 - Task: Log something to file or DB using custom operator
 
 ---
 
-### ✅ Day 7: Mini Project – ETL Pipeline
+### ✅ Day 7: [Mini Project – ETL Pipeline](./docs/day7.md)
 - Learn: Combining concepts into a real-world DAG
-- DAG: `day7_etl_project_dag.py`
+- DAG: [`day7_etl_project_dag.py`](./dags/day7_etl_project_dag.py)
 - Task: Extract from API → Transform data → Load to DB → Email on success
 
 ---

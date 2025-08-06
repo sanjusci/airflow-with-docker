@@ -1,0 +1,7 @@
+# Customer Orders - August 2025
+OrderID,CustomerName,Product,Quantity,Price
+101,Ananya Sharma,USB Cable,2,199
+102,Ravi Mehta,Wireless Mouse,1,599
+103,Kiran Desai,Laptop Stand,1,1299
+104,Sara Khan,HDMI Cable,3,299
+105,Amit Singh,Keyboard,2,999
