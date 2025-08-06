@@ -21,7 +21,7 @@ with DAG(
     dag_id='day3_retry_scheduler_dag',
     default_args=default_args,
     description='Day 3 - Retry, Catchup, SLA, Execution Timing',
-    schedule_interval='@daily',              # Run once a day
+    schedule_interval='0 3 * * Tue-Fri',             # Run Tuesday to Friday at 3 AM
     start_date=datetime(2025, 8, 1),         # Start date of DAG
     catchup=False,                           # Skip backfilling past runs
     tags=['day3', 'airflow-learning', 'Retry'],       # Optional tags for filtering in UI
