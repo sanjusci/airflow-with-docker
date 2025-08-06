@@ -138,7 +138,7 @@ airflow connections add 'postgres_default' \
     --conn-password 'airflow' \
     --conn-schema 'airflow' \
     --conn-port 5432
-
+```
 # 🧪 How to Check PostgreSQL Connection Inside Docker (Airflow)
 
 When using Airflow and Postgres in Docker, it’s important to verify that the **PostgreSQL service is accessible from your containers**, especially for tasks using `PostgresOperator` or `PostgresHook`.
@@ -151,7 +151,9 @@ When using Airflow and Postgres in Docker, it’s important to verify that the *
 
 ```bash
 docker exec -it <container-id> bash
+```
 
 ### 🔹 Step 2: Use `psql` to connect to Postgres
 ```bash
 psql -h postgres -U airflow -d airflow
+```
